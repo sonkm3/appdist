@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width" />
+    <style type="text/css">
+        .install{
+            display:block;
+            font-size:30px;
+            margin: 10px auto;
+            width:100%;
+        }
+    </style>
+    <title>appdist</title>
+<body>
+
+<table border="1">
+    <tr>
+        <th>アプリ名</th>
+        <th>説明</th>
+        <th>ファイル名</th>
+        <th>インストール</th>
+    </tr>
+{% for app in app_list %}
+    <tr>
+        <td>
+            {{ app.title }}
+        </td>
+        <td>
+            {{ app.detail }}
+        </td>
+        <td>
+            {{ app.package_file }}
+        </td>
+        <td>
+            <a class="install" href="itms-services://?action=download-manifest&url=https://{{ server_name }}/plistgen/{{ app.id }}/{{ app.updated|date:"U" }}">Install</a>
+        </td>
+    </tr>
+{% endfor %}
+</table>
+
+</body>
+</html>
