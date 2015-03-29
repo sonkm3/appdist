@@ -19,6 +19,7 @@
         <th>アプリ名</th>
         <th>説明</th>
         <th>ファイル名</th>
+        <th>更新日</th>
         <th>インストール</th>
     </tr>
 {% for app in app_list %}
@@ -31,6 +32,9 @@
         </td>
         <td>
             {{ app.package_file }}
+        </td>
+        <td>
+            {{ app.updated }}
         </td>
         <td>
             <a class="install" href="itms-services://?action=download-manifest&url=https://{{ server_name }}/plistgen/{{ app.id }}/{{ app.updated|date:"U" }}">Install</a>
