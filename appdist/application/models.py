@@ -15,19 +15,24 @@ class DistApp(models.Model):
 
     def save(self):
         def get_info_plist(app_path):
-            target_ipa = zipfile.ZipFile(app_path)
-            for filename in target_ipa.namelist():
-                if filename.endswith('Info.plist'):
-                    info_plist = plistlib.loads(target_ipa.read(filename))
-                    print(filename)
-                    if 'CFBundleIdentifier' in info_plist:
-                        return info_plist
+            try:
+                target_ipa = zipfile.ZipFile(app_path)
+                for filename in target_ipa.namelist():
+                    if filename.endswith('Info.plist'):
+                        info_plist = plistlib.loads(target_ipa.read(filename))
+                        if 'CFBundleIdentifier' in info_plist:
+                            return info_plist
+            except:
+                pass
             return None
 
+        super().save()
         app_info = get_info_plist(self.package_file.path)
 
         if app_info:
             self.bundle_identifier = app_info['CFBundleIdentifier']
             self.bundle_version = app_info['CFBundleShortVersionString']
 
-        super().save()
+            super().save()
+        else:
+            super().delete()
