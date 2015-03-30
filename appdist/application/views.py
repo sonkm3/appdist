@@ -8,7 +8,7 @@ def root_view(request):
 
 
 def list_view(request):
-    app_list = DistApp.objects.all()
+    app_list = DistApp.objects.filter(display=True)
     return render(request, 'list.html', {'app_list': app_list, 'server_name': request.META['SERVER_NAME']})
 
 def plistgen_view(request, app_id, updated):

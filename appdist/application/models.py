@@ -10,6 +10,8 @@ class DistApp(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now_add=True, auto_now=True)
 
+    display = models.BooleanField(default=True,)
+
     bundle_identifier = models.CharField(max_length=100, null=True, blank=True)
     bundle_version = models.CharField(max_length=100, null=True, blank=True)
 
