@@ -92,3 +92,5 @@ STATICFILES_FINDERS = (
     #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
+LOGIN_URL = '/admin/login/?next=/'
+
