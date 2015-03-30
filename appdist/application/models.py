@@ -16,25 +16,22 @@ class DistApp(models.Model):
     bundle_version = models.CharField(max_length=100, null=True, blank=True)
 
     def save(self):
-        def get_info_plist(app_path):
+        def get_info_plist(app_file):
             try:
-                target_ipa = zipfile.ZipFile(app_path)
+                target_ipa = zipfile.ZipFile(app_file)
                 for filename in target_ipa.namelist():
                     if filename.endswith('Info.plist'):
                         info_plist = plistlib.loads(target_ipa.read(filename))
                         if 'CFBundleIdentifier' in info_plist:
                             return info_plist
-            except:
-                pass
-            return None
+            except Exception as e:
+                raise e # いや。。その。。。
 
-        super().save()
-        app_info = get_info_plist(self.package_file.path)
+        app_info = get_info_plist(self.package_file.file)
 
         if app_info:
             self.bundle_identifier = app_info['CFBundleIdentifier']
             self.bundle_version = app_info['CFBundleShortVersionString']
-
-            super().save()
         else:
-            super().delete()
+            pass
+        super().save()
