@@ -33,7 +33,7 @@
             {{ app.updated }}
         </td>
         <td rowspan="4">
-            <a class="install" href="itms-services://?action=download-manifest&url=https://{{ server_name }}/plistgen/{{ app.id }}/{{ app.updated|date:"U" }}">Install</a>
+            <a class="install" href="itms-services://?action=download-manifest&url=https://{{ server_name }}/plistgen/{{ app.id }}_{{ app.updated|date:"U" }}.plist">Install</a>
         </td>
     </tr>
     <tr>

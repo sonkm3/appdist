@@ -12,5 +12,5 @@ urlpatterns = patterns('',
 
     url(r'^$', views.root_view),
     url(r'^list/', views.list_view),
-    url(r'^plistgen/(?P<app_id>[0-9]+)/(?P<updated>.+)',views.plistgen_view),
+    url(r'^plistgen/(?P<app_id>[0-9]+)_(?P<updated>[0-9]+)\.plist',views.plistgen_view),
 )
