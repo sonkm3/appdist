@@ -16,30 +16,47 @@
 
 <table border="1">
     <tr>
-        <th>アプリ名</th>
-        <th>説明</th>
-        <th>ファイル名</th>
-        <th>更新日</th>
+        <th>ID</th>
+        <th>アプリ名/説明</th>
+        <th>アプリ情報</th>
         <th>インストール</th>
     </tr>
 {% for app in app_list %}
     <tr>
+        <td rowspan="4">
+            {{ app.id }}
+        </td>
         <td>
             {{ app.title }}
         </td>
         <td>
+            {{ app.updated }}
+        </td>
+        <td rowspan="4">
+            <a class="install" href="itms-services://?action=download-manifest&url=https://{{ server_name }}/plistgen/{{ app.id }}/{{ app.updated|date:"U" }}">Install</a>
+        </td>
+    </tr>
+    <tr>
+        <td rowspan="3">
             {{ app.detail }}
         </td>
         <td>
             {{ app.package_file }}
         </td>
+    </tr>
+
+    <tr>
         <td>
-            {{ app.updated }}
-        </td>
-        <td>
-            <a class="install" href="itms-services://?action=download-manifest&url=https://{{ server_name }}/plistgen/{{ app.id }}/{{ app.updated|date:"U" }}">Install</a>
+            {{ app.bundle_identifier }}
         </td>
     </tr>
+    <tr>
+        <td>
+            {{ app.bundle_version }}
+        </td>
+    </tr>
+
+
 {% endfor %}
 </table>
 
