@@ -12,7 +12,7 @@ def root_view(request):
 
 @login_required
 def list_view(request):
-    app_list = DistApp.objects.filter(display=True)
+    app_list = DistApp.objects.filter(display=True).order_by('-created')
     return render(request, 'list.html', {'app_list': app_list, 'server_name': get_server_name(request)})
 
 def plistgen_view(request, app_id, updated):
